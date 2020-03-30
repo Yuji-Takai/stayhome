@@ -1,14 +1,21 @@
 <div class="component">
     <h1>R U HOME</h1>
-    <div class="row" style="height: 500px;">
+    <div class="row" style="height: 60%;">
       <div class="col-md-3">
         <div>
           <h3 style="color: orange; text-align: center; margin-top: 40%">Total Number of People</h3>
           <p id="cumTotalNumber" style="color: orange; font-size: 100px; text-align: center;"></p>
         </div>
       </div>
-      <div id="chat-board" class="col-md-6"> 
+      <div class="col-md-2 chat-board"> 
         <!-- Column for message board -->
+        <h4 style="text-align: left;">Users</h4>
+        <div class="userinfo">
+          <div class="message"></div>
+        </div>
+      </div>
+      <div class="col-md-4 chat-board">
+        <h4 style="text-align: left;">Messages</h4>
         <div class="chat">
           <div class="message"></div>
         </div>
@@ -20,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="row" style="margin-top: 5%">
+    <div class="row" style="margin-top: 3%">
       <div class="col-md-3"></div>
       <div class="col-md-2">
         <div class="input-group">
@@ -29,6 +36,7 @@
               <input type="text" class="form-control" id="userName" placeholder="User name" aria-label="User name" aria-describedby="basic-addon1" #userName>
           </div>
         </div>
+        <div id="error-message-userName" class="error-message"></div>
       </div>
       <div class="col-md-2">
         <div class="input-group">
@@ -37,6 +45,7 @@
               <input type="text" class="form-control" id="content" placeholder="Message" aria-label="Message" aria-describedby="basic-addon1" #content>
           </div>
         </div>
+        <div id="error-message-content" class="error-message"></div>
       </div>
       <div class="col-md-2">
         <div class="input-group">
@@ -292,7 +301,7 @@
       </div>
       <div class="col-md-3"></div>
     </div>
-    <div class="row" style="margin-top: 5%">
+    <div class="row" style="margin-top: 3%">
       <button type="button" id="submitbutton" class="btn btn-primary rounded-pill btn-lg" style="margin: auto" (click)="sendMessage(userName.value, countryId.value, content.value)">I am quarantine</button>
       <!-- <div class="send" (click)="sendMessage(userName.value, countryId.value, content.value)"></div> -->
     </div>

@@ -17,9 +17,19 @@ export class ChatComponent implements OnInit {
   constructor() { }
 
   sendMessage(userName, countryId, content){
-    var message = {"userName": userName, "countryId": countryId, "content": content};
-    this.stompClient.send("/app/send/message" , {}, JSON.stringify(message));
-    $('#content').val('');
+    if (content.length !== 0 && userName.length !== 0) {
+      var message = {"userName": userName, "countryId": countryId, "content": content};
+      this.stompClient.send("/app/send/message" , {}, JSON.stringify(message));
+      $('#content').val('');
+      document.getElementById('error-message-userName').innerHTML = '';
+      document.getElementById('error-message-content').innerHTML = '';
+    }
+    if (userName.length === 0) {
+      document.getElementById('error-message-userName').innerHTML = 'Enter your name!';
+    }
+    if (content.length === 0) {
+      document.getElementById('error-message-content').innerHTML = 'Say something!'
+    }
   }
 
   ngOnInit(): void {
@@ -28,7 +38,8 @@ export class ChatComponent implements OnInit {
     let that = this;
     this.stompClient.connect({}, function(frame) {
       that.stompClient.subscribe("/chat", (message) => {
-        if(message.body) {          
+        if(message.body) {   
+          $('.userinfo').empty();       
           $(".chat").empty();
           var total_message = JSON.parse(message.body);
           var comments = total_message.comments;
@@ -36,8 +47,9 @@ export class ChatComponent implements OnInit {
           var last = comments.length;
           var first = (last - this.counter >= 0) ? last - this.counter : 0;
           for (let i = first; i < last; i++) {
-            $(".chat").append("<div class='message'>"+ comments[i].userName 
-              + " " + comments[i].countryId + " " + comments[i].content + "</div>")
+            $('.userinfo').append("<div>" + comments[i].userName + "(" + comments[i].countryId + ")")
+            $(".chat").append("<div class='message'>"+ comments[i].content + "</div>");
+            
           }
           this.counter++;
 
