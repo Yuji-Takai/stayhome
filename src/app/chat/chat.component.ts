@@ -11,16 +11,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  private serverUrl = 'http://localhost:8080/socket'
+  private serverUrl = 'https://warm-coast-68258.herokuapp.com//socket'
   private stompClient;
+  private counter = 1;
   constructor() { }
 
   sendMessage(userName, countryId, content){
     console.log(userName);
     var message = {"userName": userName, "countryId": countryId, "content": content};
     this.stompClient.send("/app/send/message" , {}, JSON.stringify(message));
-    $('#userName').val('');
-    $('#countryId').val('');
     $('#content').val('');
   }
 
@@ -30,10 +29,29 @@ export class ChatComponent implements OnInit {
     let that = this;
     this.stompClient.connect({}, function(frame) {
       that.stompClient.subscribe("/chat", (message) => {
-        if(message.body) {
-          message = JSON.parse(message.body);
-          $(".chat").append("<div class='message'>"+message.userName + " " + message.countryId + " " + message.content + "</div>")
-          console.log(message.body);
+        if(message.body) {          
+          $(".chat").empty();
+          var total_message = JSON.parse(message.body);
+          var comments = total_message.comments;
+          var countries = total_message.countries;
+          var last = comments.length;
+          var first = (last - this.counter >= 0) ? last - this.counter : 0;
+          for (let i = first; i < last; i++) {
+            $(".chat").append("<div class='message'>"+ comments[i].userName 
+              + " " + comments[i].countryId + " " + comments[i].content + "</div>")
+          }
+          this.counter++;
+
+          var cum_total = 0;
+          var today_total = 0;
+          $.each(countries, function(index, country) {
+            cum_total += country.cum_total;
+            today_total += country.today_total;
+          });
+          console.log("cummulative total: " + cum_total);
+          document.getElementById("cumTotalNumber").innerHTML = "" + cum_total;
+          document.getElementById("todayTotalNumber").innerHTML = "" + today_total;
+          
         }
       });
     });
