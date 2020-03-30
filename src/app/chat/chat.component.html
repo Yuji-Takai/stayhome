@@ -1,0 +1,20 @@
+<div style="text-align:center">
+    <h2>
+      Chat with the others self-quarantining around the world!
+    </h2>
+    <div class="chat-container">
+      <div class="chat">
+        <div class="message"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="send-button">
+  
+      <div class="send" (click)="sendMessage(userName.value, countryId.value, content.value)">
+      </div>
+      <input id="userName" type="text" #userName placeholder="User name...">
+      <input id="countryId" type="text" #countryId placeholder="Country ID">
+      <input id="content" type="text" #content placeholder="Message">
+    </div>
+</div>
