@@ -17,7 +17,6 @@ export class ChatComponent implements OnInit {
   constructor() { }
 
   sendMessage(userName, countryId, content){
-    console.log(userName);
     var message = {"userName": userName, "countryId": countryId, "content": content};
     this.stompClient.send("/app/send/message" , {}, JSON.stringify(message));
     $('#content').val('');
@@ -56,5 +55,4 @@ export class ChatComponent implements OnInit {
       });
     });
   }
-
 }
