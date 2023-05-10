@@ -27,7 +27,7 @@
     "i": "^0.3.6",
     "jquery": "^3.4.1",
     "net": "^1.0.2",
-    "npm": "^6.14.4",
+    "npm": "^6.14.18",
     "rxjs": "~6.5.4",
     "sockjs-client": "^1.4.0",
     "stompjs": "^2.3.3",
@@ -35,7 +35,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.901.0",
+    "@angular-devkit/build-angular": "~0.901.15",
     "@angular/cli": "~9.1.0",
     "@angular/compiler-cli": "~9.1.0",
     "@angular/language-service": "~9.1.0",
